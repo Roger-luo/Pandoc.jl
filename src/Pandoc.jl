@@ -1,5 +1,7 @@
 module Pandoc
 
+VERSION >= v"0.4.0-dev+6521" && __precompile__()
+
 pandoc_minimal_version = v"1.12.1"
 
 # Convert strings to an array of ByteStrings
