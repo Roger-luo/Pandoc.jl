@@ -62,8 +62,8 @@ function get_pandoc_version()
         out = readstring(`pandoc -v`)
         out_lines = split(out,'\n')
         for tok in split(out_lines[1])
-            if ismatch(r"^\d+(\.\d+){1,}$",tok)
-                pandoc_version = VersionNumber(tok)
+            if ismatch(r"^(\d+(\.\d+){2}).+$",tok)
+                pandoc_version = VersionNumber(match(r"^(\d+(\.\d+){2}).+$",tok).captures[1])
                 break
             end
         end
@@ -82,7 +82,7 @@ function check_pandoc_version()
         return false
     end
 
-    ok = v<pandoc_minimal_version
+    ok = v>=pandoc_minimal_version
     if !ok
         warn("""You are using an old version of pandoc $v
             Recommended version is $(pandoc_minimal_version)
